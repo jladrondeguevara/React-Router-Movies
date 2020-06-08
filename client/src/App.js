@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieList from './Movies/MovieList';
 import Movie from './Movies/Movie';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 import SavedList from './Movies/SavedList';
 
@@ -32,19 +32,14 @@ const App = () => {
     <div>
       <SavedList list={savedList} />
       <div>
-          <Route path='/' render={props => {
+          <Route exact path='/' render={props => {
             props = movieList;
-            return <div><MovieList movies = {props}/></div>
+            return <div>
+              <MovieList movies = {props}/>
+            </div>
           }}/>
-          {/* <Route path='/' component = {<MovieList movies = {movieList}/>}/> */}
-          {/* {console.log("this is the data: ", movieList)} */}
-          {/* <MovieList movies = {movieList}/> */}
-          <Route path='/movies/:id' render={props => {
-            const {id} = props.match.params;
-            return <div><Movie props = {id}/></div>
-          }}/>
+          <Route path='/movies/:id' component={Movie}/>
 
-          <Link to='/movies'>Movies</Link>
       </div>
     </div>
   );
